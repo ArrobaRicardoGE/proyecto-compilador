@@ -2,9 +2,8 @@
 
 namespace gm{
 
-    std::vector<std::string> split(const std::string& s, char delimiter){
+        void split(const std::string& s, std::vector<std::string>& answer, char delimiter){
         std::string partialAns;
-        std::vector<std::string> answer;
         for( const auto x: s)
         {
             if(x == delimiter)
@@ -24,7 +23,6 @@ namespace gm{
             answer.emplace_back(std::move(partialAns));
             partialAns.clear();
         }
-        return answer;
     }
 
 } // gm

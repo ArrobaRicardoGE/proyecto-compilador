@@ -4,6 +4,6 @@
 namespace gm {
     const char DELIMITER = ' ';
 
-    std::vector<std::string> split(const std::string& s, char delimiter = DELIMITER);
+    void split(const std::string& s, std::vector<std::string>& answer, char delimiter = DELIMITER);
 
 } //gm

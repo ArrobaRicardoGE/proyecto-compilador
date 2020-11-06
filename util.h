@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <unordered_map>
+#include <memory>
 
 namespace gm {
     const char DELIMITER = ' ';
@@ -23,6 +24,8 @@ namespace gm {
     const int IF = 702;
     const int READ = 800;
     const int PRINT = 801;
+    const int INTEGER_VALUE = 900;
+    const int FLOAT_VALUE = 901;
 
     const std::unordered_map<std::string, int> WORD_MAP(
             {

@@ -4,4 +4,5 @@ project(proyecto-compilador)
 set(CMAKE_CXX_STANDARD 14)
 
 add_library(util util.cpp)
-add_executable(main main.cpp util)
+add_library(lexicalAnalyzer lexicalAnalyzer.cpp util)
+add_executable(main main.cpp util lexicalAnalyzer)

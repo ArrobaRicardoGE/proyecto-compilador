@@ -21,6 +21,9 @@ namespace gm {
     const int BREAK = 700;
     const int WHILE = 701;
     const int IF = 702;
+    const int ELSE = 703;
+    const int FOR = 704;
+    const int TO = 705;
     const int READ = 800;
     const int PRINT = 801;
 
@@ -32,6 +35,7 @@ namespace gm {
                 {"bool", BOOL},
                 {"True", TRUE},
                 {"False", FALSE},
+                {"#", '#'},
                 {"\"", '\"'},
                 {":=", ASIGNAR},
                 {"*", '*'},
@@ -51,6 +55,9 @@ namespace gm {
                 {"break", BREAK},
                 {"while", WHILE},
                 {"if", IF},
+                {"else",ELSE},
+                {"for",FOR},
+                {"to",TO},
                 {"{", '{'},
                 {"}", '}'},
                 {"Read()", READ},

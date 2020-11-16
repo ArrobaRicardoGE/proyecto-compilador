@@ -17,6 +17,7 @@ namespace gm {
     const int MENOR_IGUAL = 500;
     const int MAYOR_IGUAL = 501;
     const int IGUAL = 502;
+    const int DIFERENTE = 503;
     const int AND = 600;
     const int OR = 601;
     const int NOT = 602;
@@ -49,6 +50,7 @@ namespace gm {
                 {"<=", MENOR_IGUAL},
                 {">=", MAYOR_IGUAL},
                 {"==", IGUAL},
+                {"!=", DIFERENTE},
                 {"&&", AND},
                 {"||", OR},
                 {"!!", NOT},

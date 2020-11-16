@@ -24,7 +24,11 @@ namespace gm{
             partialAns.clear();
         }
     }
-
+    bool issymbol(char c){
+        return c == ':' || c == '=' || c == '*' || c == '/' || c == '+' || c == '-'
+                        || c == '<' || c == '>' || c == '&' || c == '|' || c == '!'
+                        || c == '(' || c == ')';
+    }
     void wordToken(const std::string &inputLine, int &it, std::string &token){
         while(it < inputLine.size() && isalnum(inputLine[it]))
             token += inputLine[it++];
@@ -35,7 +39,7 @@ namespace gm{
     }
     void symbolToken(const std::string &inputLine, int &it, std::string &token){
         //this is not complete yet
-        while(it < inputLine.size() && inputLine[it] != ' ')
+        while(it < inputLine.size() && issymbol(inputLine[it]))
             token += inputLine[it++];
     }
     void stringToken(const std::string &inputLine, int &it, std::string &token){
@@ -80,7 +84,7 @@ namespace gm{
         if(inputFile.is_open()){
             while(getline(inputFile,inputLine)){
                 //Ignore a comment
-                if(inputLine.size()>=2 && inputLine[0] == '/' && inputLine[1] == '/')
+                if(!inputLine.empty() && inputLine[0] == '#')
                     continue;
 
                 //Break a line into tokens

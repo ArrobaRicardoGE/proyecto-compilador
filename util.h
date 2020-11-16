@@ -67,7 +67,7 @@ namespace gm {
             });
 
     void split(const std::string& s, std::vector<std::string>& answer, char delimiter = DELIMITER);
-    std::vector<std::vector<std::string>> analizeSyntax(const std::string& filename);
+    std::vector<std::vector<std::string>> analyzeSyntax(const std::string& filename);
     void getTokens(const std::string &inputLine, std::vector<std::string>& tokenList);
     void wordToken(const std::string &inputLine, int &it, std::string &token);
     void numericToken(const std::string &inputLine, int &it, std::string &token);

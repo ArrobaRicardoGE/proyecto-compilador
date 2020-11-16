@@ -71,7 +71,7 @@ namespace gm{
             tokenList.emplace_back(token);
         }
     }
-    std::vector<std::vector<std::string>> analizeSyntax(const std::string& filename){
+    std::vector<std::vector<std::string>> analyzeSyntax(const std::string& filename){
         std::ifstream inputFile;
         std::string inputLine;
         std::vector<std::vector<std::string>>tokensByLine;

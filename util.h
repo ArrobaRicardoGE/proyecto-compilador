@@ -2,6 +2,8 @@
 #include <vector>
 #include <iostream>
 #include <unordered_map>
+#include <fstream>
+#include <string>
 
 namespace gm {
     const char DELIMITER = ' ';
@@ -65,7 +67,6 @@ namespace gm {
             });
 
     void split(const std::string& s, std::vector<std::string>& answer, char delimiter = DELIMITER);
-
-
-
+    std::vector<std::vector<std::string>> analizeSyntax(const std::string& filename);
 } //gm
+

@@ -25,4 +25,22 @@ namespace gm{
         }
     }
 
+    std::vector<std::vector<std::string>> analizeSyntax(const std::string& filename){
+        std::ifstream inputFile;
+        std::string inputLine;
+        std::vector<std::vector<std::string>>tokensByLine;
+
+        inputFile.open(filename,std::ios::in);
+        if(inputFile.is_open()){
+            while(getline(inputFile,inputLine)){
+                std::vector<std::string> newLine;
+                newLine.emplace_back(inputLine);
+                tokensByLine.emplace_back(newLine);
+            }
+            inputFile.close();
+        }
+        //else raise exception or whatever
+        return tokensByLine;
+    }
+
 } // gm

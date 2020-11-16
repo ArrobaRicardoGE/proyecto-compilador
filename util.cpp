@@ -2,7 +2,7 @@
 
 namespace gm{
 
-        void split(const std::string& s, std::vector<std::string>& answer, char delimiter){
+    void split(const std::string& s, std::vector<std::string>& answer, char delimiter){
         std::string partialAns;
         for( const auto x: s)
         {
@@ -25,6 +25,52 @@ namespace gm{
         }
     }
 
+    void wordToken(const std::string &inputLine, int &it, std::string &token){
+        while(it < inputLine.size() && isalnum(inputLine[it]))
+            token += inputLine[it++];
+    }
+    void numericToken(const std::string &inputLine, int &it, std::string &token){
+        while(it < inputLine.size() && (isdigit(inputLine[it]) || inputLine[it] == '.'))
+            token += inputLine[it++];
+    }
+    void symbolToken(const std::string &inputLine, int &it, std::string &token){
+        //this is not complete yet
+        while(it < inputLine.size() && inputLine[it] != ' ')
+            token += inputLine[it++];
+    }
+    void stringToken(const std::string &inputLine, int &it, std::string &token){
+        //opening quote
+        token += inputLine[it++];
+        while(it < inputLine.size() && inputLine[it] != '\"')
+            token += inputLine[it++];
+        //closing quote
+        token += inputLine[it++];
+    }
+
+    void getTokens(const std::string &inputLine, std::vector<std::string> &tokenList){
+        int it = 0;
+        while(it < inputLine.size()){
+            //whitespace
+            if(inputLine[it] == ' '){
+                it++;
+                continue;
+            }
+            std::string token;
+            //word
+            if(isalpha(inputLine[it]))
+                wordToken(inputLine,it,token);
+            //number
+            else if(isdigit(inputLine[it]))
+                numericToken(inputLine,it,token);
+            //string
+            else if(inputLine[it] == '\"')
+                stringToken(inputLine,it,token);
+            //symbol
+            else
+                symbolToken(inputLine,it,token);
+            tokenList.emplace_back(token);
+        }
+    }
     std::vector<std::vector<std::string>> analizeSyntax(const std::string& filename){
         std::ifstream inputFile;
         std::string inputLine;
@@ -33,9 +79,15 @@ namespace gm{
         inputFile.open(filename,std::ios::in);
         if(inputFile.is_open()){
             while(getline(inputFile,inputLine)){
-                std::vector<std::string> newLine;
-                newLine.emplace_back(inputLine);
-                tokensByLine.emplace_back(newLine);
+                //Ignore a comment
+                if(inputLine.size()>=2 && inputLine[0] == '/' && inputLine[1] == '/')
+                    continue;
+
+                //Break a line into tokens
+                std::vector<std::string> tokenList;
+                getTokens(inputLine,tokenList);
+
+                tokensByLine.emplace_back(tokenList);
             }
             inputFile.close();
         }

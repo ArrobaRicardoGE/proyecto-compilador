@@ -1,5 +1,4 @@
-hola esto es un test
-
-para ver que show
-con esta cosa
-//jajaja
+int x := 44
+string a := "hola mundo!"
+int y:=144.4
+Print("holaaaa")

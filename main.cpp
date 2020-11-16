@@ -8,7 +8,7 @@ int main(){
     auto output = gm::analizeSyntax(path+"testFile.txt");
     for(auto &line:output){
         for(auto &word:line){
-            cout<<word<<' ';
+            cout<<'['<<word<<"] ";
         }
         cout<<endl;
     }

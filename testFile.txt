@@ -3,6 +3,7 @@ string a := "hola \"mundo\"!"
 int y:=144.4
 Print("holaaaa")
 #ignora esto porfas :)
+
 for i:=    34 to 14{
     Print(i)
     break
@@ -13,4 +14,12 @@ for i:=    34 to 14{
 while a != True{
     float a := Read()
     Print(a+123.123)
+}
+
+int i
+int j
+for i := 2 to 14{
+    for j := 6 to 2 {
+        x := x + i*j
+    }
 }

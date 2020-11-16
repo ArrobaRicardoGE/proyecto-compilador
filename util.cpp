@@ -38,7 +38,11 @@ namespace gm{
             token += inputLine[it++];
     }
     void symbolToken(const std::string &inputLine, int &it, std::string &token){
-        //this is not complete yet
+        //Check for symbols that could be together but can't be mixed with other symbols
+        if(inputLine[it] == '(' || inputLine[it] == ')' || inputLine[it] == '{' || inputLine[it] == '}'){
+            token += inputLine[it++];
+            return;
+        }
         while(it < inputLine.size() && issymbol(inputLine[it]))
             token += inputLine[it++];
     }

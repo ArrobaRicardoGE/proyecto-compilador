@@ -3,23 +3,21 @@
 #include <fstream>
 #include "util.h"
 
+
 namespace gm {
+    using tokenMatrix = std::vector<std::vector<std::string>>;
     class lexicalAnalyzer {
     public:
-        lexicalAnalyzer(std::unique_ptr<std::ifstream> archivo,
-                        std::shared_ptr<std::unordered_map<std::string, int>> wordMap);
-
-        void Read(std::vector<std::vector<std::string>> &tokens);
-
-        bool check(std::vector<std::vector<std::string>> &tokens, std::vector<std::vector<int>> &keys);
+        lexicalAnalyzer();
+        void analyze(const std::string& filename, tokenMatrix& tokensByLine, std::vector<std::vector<int>>& ids);
 
     private:
-        bool checkIntegerValue(std::string &possibleInteger);
+        void analyzeSyntax(const std::string& filename, tokenMatrix& tokensByLine);
+        void getTokens(const std::string &inputLine, std::vector<std::string>& tokenList);
+        void wordToken(const std::string &inputLine, int &it, std::string &token);
+        void numericToken(const std::string &inputLine, int &it, std::string &token);
+        void symbolToken(const std::string &inputLine, int &it, std::string &token);
+        void stringToken(const std::string &inputLine, int &it, std::string &token);
 
-        bool checkFloatValue(std::string &possibleFloat);
-
-        std::shared_ptr<std::unordered_map<std::string, int>> wordMap_;
-        std::vector<std::pair<int, int>> badLines_;
-        std::unique_ptr<std::ifstream> archivo_;
     };
 } //gm

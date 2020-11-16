@@ -1,17 +1,20 @@
 #include "util.h"
+#include "lexicalAnalyzer.h"
 
-using namespace std;
+using namespace gm;
 
 //Path for testing
-const string path = "C:/users/ricar/documents/up/3/dsaii/3/proyecto-compilador/";
+const std::string path = "D:/TODO/Programas Weeb/proyecto-compilador/";
 
 int main(){
     //Driver program to test the syntax analyzer
-    auto output = gm::analyzeSyntax(path+"testFile.txt");
+    tokenMatrix output;
+    vector<vector<int>> ids;
+    lexicalAnalyzer().analyze(path+"testFile.txt", output, ids);
     for(auto &line:output){
         for(auto &word:line){
-            cout<<'['<<word<<"] ";
+            std::cout<<'['<<word<<"] ";
         }
-        cout<<endl;
+        std::cout<<std::endl;
     }
 }

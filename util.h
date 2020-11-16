@@ -31,6 +31,8 @@ namespace gm {
     const int PRINT = 801;
     const int INTEGER_VALUE = 900;
     const int FLOAT_VALUE = 901;
+    const int STRING_VALUE = 902;
+    const int VARIABLE = 1000;
 
     const std::unordered_map<std::string, int> WORD_MAP(
             {

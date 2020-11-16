@@ -9,8 +9,71 @@ namespace gm{
     void lexicalAnalyzer::analyze(const std::string& filename, tokenMatrix& tokensByLine, std::vector<std::vector<int>>& ids)
     {
         analyzeSyntax(filename, tokensByLine);
+        getIds(tokensByLine, ids);
     }
 
+    void lexicalAnalyzer::getIds(tokenMatrix& tokensByLine, std::vector<std::vector<int>>& ids)
+    {
+        for(const auto& line : tokensByLine)
+        {
+            std::vector<int> idsLine;
+            for(const auto& token : line)
+            {
+                idsLine.emplace_back(getTokenId(token));
+            }
+            ids.emplace_back(std::move(idsLine));
+        }
+    }
+
+    int lexicalAnalyzer::getTokenId(const std::string& token)
+    {   if(token.empty()) return -1;
+        if(token[0] == '"' && token[token.size()-1]== '"') return STRING_VALUE;
+        bool decimal = false;
+        bool number = true;
+        for(const auto x : token)
+        {
+            if(!(isdigit(x) || x == '.'))
+            {
+                number = false;
+            }
+
+            if(x == '.' && decimal)
+            {
+                return -1;
+            }
+            else if(x == '.')
+            {
+                decimal = true;
+            }
+        }
+        if(decimal && number)
+        {
+            return FLOAT_VALUE;
+        }
+        else if(number)
+        {
+            return INTEGER_VALUE;
+        }
+
+        auto mapIt = WORD_MAP.find(token);
+        if(mapIt == WORD_MAP.end()){
+            if(variable(token)) return VARIABLE;
+            else return -1;
+        }
+        else return mapIt->second;
+    }
+
+    bool lexicalAnalyzer::variable(const std::string& token)
+    {
+        for(int i=1;i<token.size(); i++)
+        {
+            if(!((token[i]>='a'&&token[i]<='z') || (token[i]>='A' && token[i]<='Z') || (token[i]>='0' && token[i] <='9')))
+            {
+                return false;
+            }
+        }
+        return (token[0] >= 'a' && token[0] <= 'z') || (token[0] >= 'A' && token[0] <= 'Z');
+    }
     void lexicalAnalyzer::wordToken(const std::string &inputLine, int &it, std::string &token){
         while(it < inputLine.size() && isalnum(inputLine[it]))
             token += inputLine[it++];

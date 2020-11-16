@@ -27,7 +27,7 @@ namespace gm{
     bool issymbol(char c){
         return c == ':' || c == '=' || c == '*' || c == '/' || c == '+' || c == '-'
                         || c == '<' || c == '>' || c == '&' || c == '|' || c == '!'
-                        || c == '(' || c == ')';
+                        || c == '(' || c == ')' || c == '{' || c == '}';
     }
     void wordToken(const std::string &inputLine, int &it, std::string &token){
         while(it < inputLine.size() && isalnum(inputLine[it]))
@@ -45,8 +45,13 @@ namespace gm{
     void stringToken(const std::string &inputLine, int &it, std::string &token){
         //opening quote
         token += inputLine[it++];
-        while(it < inputLine.size() && inputLine[it] != '\"')
+        while(it < inputLine.size() && inputLine[it] != '\"'){
+            if(inputLine[it] == '\\'){
+                token += '\\';
+                it++;
+            }
             token += inputLine[it++];
+        }
         //closing quote
         token += inputLine[it++];
     }
@@ -59,6 +64,9 @@ namespace gm{
                 it++;
                 continue;
             }
+            //comment
+            if(inputLine[it] == '#')
+                return;
             std::string token;
             //word
             if(isalpha(inputLine[it]))
@@ -70,8 +78,13 @@ namespace gm{
             else if(inputLine[it] == '\"')
                 stringToken(inputLine,it,token);
             //symbol
-            else
+            else if(issymbol(inputLine[it]))
                 symbolToken(inputLine,it,token);
+            else{
+                //raise exception or whatever, since it is an invalid symbol
+                it++;
+                continue;
+            }
             tokenList.emplace_back(token);
         }
     }
@@ -83,15 +96,12 @@ namespace gm{
         inputFile.open(filename,std::ios::in);
         if(inputFile.is_open()){
             while(getline(inputFile,inputLine)){
-                //Ignore a comment
-                if(!inputLine.empty() && inputLine[0] == '#')
-                    continue;
-
                 //Break a line into tokens
                 std::vector<std::string> tokenList;
                 getTokens(inputLine,tokenList);
 
-                tokensByLine.emplace_back(tokenList);
+                if(!tokenList.empty())
+                    tokensByLine.emplace_back(tokenList);
             }
             inputFile.close();
         }

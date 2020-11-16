@@ -1,5 +1,16 @@
 int x := 44
-string a := "hola mundo!"
+string a := "hola \"mundo\"!"
 int y:=144.4
 Print("holaaaa")
 #ignora esto porfas :)
+for i:=    34 to 14{
+    Print(i)
+    break
+    #Ahorita esta cosa ignora los simbolos que no significan nada, como por ejemplo:
+    %
+    #Pero la idea es que no los ignore, sino que lance error de compilacion o algo asi
+}
+while a != True{
+    float a := Read()
+    Print(a+123.123)
+}

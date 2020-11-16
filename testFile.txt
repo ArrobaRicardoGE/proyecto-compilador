@@ -14,6 +14,7 @@ for i:=    34 to 14{
 while a != True{
     float a := Read()
     Print(a+123.123)
+    Print( a * 123333.4 )
 }
 
 int i

@@ -2,6 +2,8 @@
 #include <vector>
 #include <iostream>
 #include <unordered_map>
+#include <fstream>
+#include <string>
 
 namespace gm {
     const char DELIMITER = ' ';
@@ -15,6 +17,7 @@ namespace gm {
     const int MENOR_IGUAL = 500;
     const int MAYOR_IGUAL = 501;
     const int IGUAL = 502;
+    const int DIFERENTE = 503;
     const int AND = 600;
     const int OR = 601;
     const int NOT = 602;
@@ -47,6 +50,7 @@ namespace gm {
                 {"<=", MENOR_IGUAL},
                 {">=", MAYOR_IGUAL},
                 {"==", IGUAL},
+                {"!=", DIFERENTE},
                 {"&&", AND},
                 {"||", OR},
                 {"!!", NOT},
@@ -65,7 +69,11 @@ namespace gm {
             });
 
     void split(const std::string& s, std::vector<std::string>& answer, char delimiter = DELIMITER);
-
-
-
+    std::vector<std::vector<std::string>> analyzeSyntax(const std::string& filename);
+    void getTokens(const std::string &inputLine, std::vector<std::string>& tokenList);
+    void wordToken(const std::string &inputLine, int &it, std::string &token);
+    void numericToken(const std::string &inputLine, int &it, std::string &token);
+    void symbolToken(const std::string &inputLine, int &it, std::string &token);
+    void stringToken(const std::string &inputLine, int &it, std::string &token);
 } //gm
+

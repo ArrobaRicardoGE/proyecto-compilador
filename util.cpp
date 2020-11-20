@@ -1,5 +1,7 @@
 #include "util.h"
 
+#include <utility>
+
 namespace gm{
 
     void split(const std::string& s, std::vector<std::string>& answer, char delimiter){
@@ -28,6 +30,13 @@ namespace gm{
         return c == ':' || c == '=' || c == '*' || c == '/' || c == '+' || c == '-'
                || c == '<' || c == '>' || c == '&' || c == '|' || c == '!'
                || c == '(' || c == ')' || c == '{' || c == '}';
+    }
+    const char* CompilationException:: what() const throw(){
+        return "Compilation error";
+    }
+
+    int CompilationException::line() const throw() {
+        return lineNum;
     }
 
 } // gm

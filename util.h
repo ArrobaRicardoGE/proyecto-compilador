@@ -1,4 +1,5 @@
 #pragma once
+#include <utility>
 #include <vector>
 #include <iostream>
 #include <unordered_map>
@@ -75,5 +76,15 @@ namespace gm {
 
     void split(const std::string& s, std::vector<std::string>& answer, char delimiter = DELIMITER);
     bool issymbol(char c);
+
+    class CompilationException:virtual public std::exception{
+    private:
+        int lineNum;
+        std::string additionalInfo;
+    public:
+        CompilationException(std::string additionalInfo, int lineNum):additionalInfo(std::move(additionalInfo)),lineNum(lineNum){};
+        virtual const char* what() const throw();
+        virtual int line() const throw();
+    };
 } //gm
 

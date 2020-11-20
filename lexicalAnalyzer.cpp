@@ -153,6 +153,6 @@ namespace gm{
             }
             inputFile.close();
         }
-        //else raise exception or whatever
+        //else throw CompilationException("hola",2);
     }
 }

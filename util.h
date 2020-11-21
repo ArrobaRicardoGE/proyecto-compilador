@@ -83,8 +83,9 @@ namespace gm {
         std::string additionalInfo;
     public:
         CompilationException(std::string additionalInfo, int lineNum):additionalInfo(std::move(additionalInfo)),lineNum(lineNum){};
-        virtual const char* what() const throw();
-        virtual int line() const throw();
+        virtual const char* what() const noexcept;
+        virtual int line() const noexcept;
+        virtual std::string info() noexcept;
     };
 } //gm
 

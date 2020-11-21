@@ -12,10 +12,10 @@ int main(){
     tokenMatrix output;
     std::vector<std::vector<int>> ids;
     try{
-        lexicalAnalyzer().analyze(pathm+"testFile.txt", output, ids);
+        lexicalAnalyzer().analyze(pathg+"testFile.txt", output, ids);
         for(auto &line:output){
-            for(auto &word:line){
-                std::cout<<'['<<word<<"] ";
+            for(auto &word:line.first){
+                std::cout<<line.second<<" ["<<word<<"] ";
             }
             std::cout<<std::endl;
         }
@@ -30,9 +30,9 @@ int main(){
         }
     }
     catch(CompilationException &e){
-        std::cout<<e.what()<<" in line "<<e.line()<<std::endl;
+        std::cout<<e.what()<<" in line "<<e.line()<<":\n"<<e.info();
     }
     catch(std::exception &e){
-        std::cout<<"Unknown exception "<<e.what()<<std::endl;
+        std::cout<<"Unknown error "<<e.what()<<std::endl;
     }
 }

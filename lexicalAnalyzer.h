@@ -5,7 +5,7 @@
 
 
 namespace gm {
-    using tokenMatrix = std::vector<std::vector<std::string>>;
+    using tokenMatrix = std::vector<std::pair<std::vector<std::string>,int>>;
     class lexicalAnalyzer {
     public:
         lexicalAnalyzer();
@@ -13,10 +13,10 @@ namespace gm {
 
     private:
         void getIds(tokenMatrix& tokensByLine, std::vector<std::vector<int>>& ids);
-        int getTokenId(const std::string& token);
+        int getTokenId(const std::string& token, int lineNo);
         bool variable(const std::string& token);
         void analyzeSyntax(const std::string& filename, tokenMatrix& tokensByLine);
-        void getTokens(const std::string &inputLine, std::vector<std::string>& tokenList);
+        void getTokens(const std::string &inputLine, std::vector<std::string>& tokenList,int lineNo);
         void wordToken(const std::string &inputLine, int &it, std::string &token);
         void numericToken(const std::string &inputLine, int &it, std::string &token);
         void symbolToken(const std::string &inputLine, int &it, std::string &token);

@@ -31,12 +31,16 @@ namespace gm{
                || c == '<' || c == '>' || c == '&' || c == '|' || c == '!'
                || c == '(' || c == ')' || c == '{' || c == '}';
     }
-    const char* CompilationException:: what() const throw(){
+    const char* CompilationException:: what() const noexcept{
         return "Compilation error";
     }
 
-    int CompilationException::line() const throw() {
+    int CompilationException::line() const noexcept{
         return lineNum;
+    }
+
+    std::string CompilationException::info() noexcept{
+        return additionalInfo;
     }
 
 } // gm

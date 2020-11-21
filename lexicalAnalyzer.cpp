@@ -17,15 +17,15 @@ namespace gm{
         for(const auto& line : tokensByLine)
         {
             std::vector<int> idsLine;
-            for(const auto& token : line)
+            for(const auto& token : line.first)
             {
-                idsLine.emplace_back(getTokenId(token));
+                idsLine.emplace_back(getTokenId(token,line.second));
             }
             ids.emplace_back(std::move(idsLine));
         }
     }
 
-    int lexicalAnalyzer::getTokenId(const std::string& token)
+    int lexicalAnalyzer::getTokenId(const std::string& token, int lineNo)
     {   if(token.empty()) return -1;
         if(token[0] == '"' && token[token.size()-1]== '"') return STRING_VALUE;
         bool decimal = false;
@@ -58,7 +58,8 @@ namespace gm{
         auto mapIt = WORD_MAP.find(token);
         if(mapIt == WORD_MAP.end()){
             if(variable(token)) return VARIABLE;
-            else return -1;
+            //else return -1;
+            else throw CompilationException(std::string("Unexpected token"+token),lineNo);
         }
         else return mapIt->second;
     }
@@ -105,7 +106,7 @@ namespace gm{
         token += inputLine[it++];
     }
 
-    void lexicalAnalyzer::getTokens(const std::string &inputLine, std::vector<std::string> &tokenList){
+    void lexicalAnalyzer::getTokens(const std::string &inputLine, std::vector<std::string> &tokenList, int lineNo){
         int it = 0;
         while(it < inputLine.size()){
             //whitespace
@@ -130,9 +131,8 @@ namespace gm{
             else if(issymbol(inputLine[it]))
                 symbolToken(inputLine,it,token);
             else{
-                //raise exception or whatever, since it is an invalid symbol
-                it++;
-                continue;
+                token += inputLine[it];
+                throw CompilationException(std::string("Unexpected token "+token),lineNo);
             }
             tokenList.emplace_back(token);
         }
@@ -143,16 +143,17 @@ namespace gm{
 
         inputFile.open(filename,std::ios::in);
         if(inputFile.is_open()){
+            int lineNo = 0;
             while(getline(inputFile,inputLine)){
                 //Break a line into tokens
                 std::vector<std::string> tokenList;
-                getTokens(inputLine,tokenList);
+                getTokens(inputLine,tokenList, ++lineNo);
 
                 if(!tokenList.empty())
-                    tokensByLine.emplace_back(tokenList);
+                    tokensByLine.emplace_back(tokenList,lineNo);
             }
             inputFile.close();
         }
-        //else throw CompilationException("hola",2);
+        else throw CompilationException("Unable to open file",0);
     }
 }

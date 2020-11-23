@@ -5,4 +5,5 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_library(util util.cpp)
 add_library(lexicalAnalyzer lexicalAnalyzer.cpp util)
-add_executable(main main.cpp util lexicalAnalyzer)
+add_library(expressionEvaluator expressionEvaluator.cpp)
+add_executable(main main.cpp util lexicalAnalyzer expressionEvaluator)

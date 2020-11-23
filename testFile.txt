@@ -20,6 +20,6 @@ int i
 int j
 for i := 2 to 14{
     for j := 6 to 2 {
-        x := x + i*j;
+        x := x + i*j
     }
 }

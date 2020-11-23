@@ -84,12 +84,11 @@ namespace gm{
             token += inputLine[it++];
     }
     void lexicalAnalyzer::symbolToken(const std::string &inputLine, int &it, std::string &token){
-        //Check for symbols that could be together but can't be mixed with other symbols
-        if(inputLine[it] == '(' || inputLine[it] == ')' || inputLine[it] == '{' || inputLine[it] == '}'){
-            token += inputLine[it++];
+        token += inputLine[it++];
+        if(inputLine[it] == '(' || inputLine[it] == ')' || inputLine[it] == '{' || inputLine[it] == '}') {
             return;
         }
-        while(it < inputLine.size() && issymbol(inputLine[it]))
+        if(it < inputLine.size() && (inputLine[it] == '=' || inputLine[it] == '|' || inputLine[it] == '!' || inputLine[it] == '&'))
             token += inputLine[it++];
     }
     void lexicalAnalyzer::stringToken(const std::string &inputLine, int &it, std::string &token){

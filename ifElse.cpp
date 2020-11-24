@@ -11,16 +11,19 @@ namespace gm{
         std::cout<<"Checando condicion del if"<<std::endl;
         int dummy;
         condicionIf->evaluar(dummy);
-        std::cout<<"Ejecutando instrucciones del if"<<std::endl;
+        std::cout<<"Ejecutando instrucciones del if{"<<std::endl;
         for(const auto& x : instruccionesIf)
-        {
+        {   std::cout<<"\t";
             x->ejecutar();
         }
-        std::cout<<"Ejecutando instrucciones del else"<<std::endl;
+        std::cout<<"}"<<std::endl;
+        std::cout<<"Ejecutando instrucciones del else{"<<std::endl;
         for(const auto& x: instruccionesElse)
         {
+            std::cout<<"\t";
             x->ejecutar();
         }
+        std::cout<<"}"<<std::endl;
 
     }
 }

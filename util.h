@@ -7,6 +7,7 @@
 #include <string>
 
 namespace gm {
+    using tokenMatrix = std::vector<std::pair<std::vector<std::string>,int>>;
     const char DELIMITER = ' ';
     const int BOOL = 200;
     const int INT = 201;
@@ -69,8 +70,8 @@ namespace gm {
                 {"to",TO},
                 {"{", '{'},
                 {"}", '}'},
-                {"Read()", READ},
-                {"Print(", PRINT},
+                {"Read", READ},
+                {"Print", PRINT},
 
             });
 

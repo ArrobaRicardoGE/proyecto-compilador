@@ -4,5 +4,6 @@ namespace gm{
     class instruccion{
     public:
         virtual void ejecutar() = 0;
+        ~instruccion() = default;
     };
 }

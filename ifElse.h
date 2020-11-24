@@ -1,3 +1,4 @@
+#pragma once
 #include "instruccion.h"
 #include "expresion.h"
 #include <memory>

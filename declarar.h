@@ -5,7 +5,7 @@
 #include "asignar.h"
 
 namespace gm {
-    class declarar : instruccion {
+    class declarar : public instruccion {
     public:
         declarar(int tipo_, std::unique_ptr<asignar> asignacion_);
 

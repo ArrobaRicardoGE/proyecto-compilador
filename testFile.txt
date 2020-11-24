@@ -4,11 +4,13 @@ int y:=144.4
 Print("holaaaa")
 #ignora esto porfas :)
 
-for i:=    34 to 14{
+int j := 3
+for j := 5 to 14{
     Print(i)
     break
     #Ya funcionan los errores de compilacion por tokens desconocidos
 }
+
 while a != True{
     float a := Read()
     Print(a+123.123)
@@ -16,10 +18,10 @@ while a != True{
     Print(b - 544)
 }
 
-int i
-int j
-for i := 2 to 14{
-    for j := 6 to 2 {
+int i := 0
+int j := 1
+for pp := 2 to 14{
+    for i := 6 to 2 {
         x := x + i*j
     }
 }

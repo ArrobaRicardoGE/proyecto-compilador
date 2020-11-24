@@ -5,7 +5,7 @@
 
 
 namespace gm {
-    using tokenMatrix = std::vector<std::pair<std::vector<std::string>,int>>;
+
     class lexicalAnalyzer {
     public:
         lexicalAnalyzer();

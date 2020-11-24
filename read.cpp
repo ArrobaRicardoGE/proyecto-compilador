@@ -5,12 +5,12 @@
 namespace gm{
     read::read(std::vector<std::string> tokens_) : expresion(std::move(tokens_)) {}
     void read::evaluar(int &a) {
-        std::cout<<"Leyendo entero"<<std::endl;
+        std::cout<<"Leyendo de consola"<<std::endl;
     }
     void read::evaluar(double &a) {
-        std::cout<<"Leyendo double"<<std::endl;
+        std::cout<<"Leyendo de consola"<<std::endl;
     }
     void read::evaluar(std::string &a) {
-        std::cout<<"Leyendo string"<<std::endl;
+        std::cout<<"Leyendo consola"<<std::endl;
     }
 }

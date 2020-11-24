@@ -8,7 +8,7 @@ namespace gm{
 
     void declarar::ejecutar()
     {
-        std::cout<<"Declarando variable de tipo "<<tipo<<std::endl;
+        std::cout<<"Declarando variable de tipo "<<tipo<<", ";
         asignacion->ejecutar();
     }
 }

@@ -11,13 +11,13 @@ const std::string pathg = "C:/users/ricar/documents/up/3/DSAII/3/proyecto-compil
 
 int main(){
     //Driver program to test the syntax analyzer
-
+    /*
     tokenMatrix output;
     std::vector<std::vector<int>> ids;
     std::vector<std::unique_ptr<instruccion>> instrucciones;
     try{
         std::cout<<"Analisis Léxico"<<std::endl;
-        lexicalAnalyzer().analyze(pathm+"testFile.txt", output, ids);
+        lexicalAnalyzer().analyze(pathg+"testFile.txt", output, ids);
         for(auto &line:output){
             for(auto &word:line.first){
                 std::cout<<line.second<<" ["<<word<<"] ";
@@ -49,7 +49,7 @@ int main(){
     catch(std::exception &e){
         std::cout<<"Unknown error "<<e.what()<<std::endl;
     }
-    /*
+    */
     tokenMatrix output;
     std::vector<std::vector<int>> ids;
     try{
@@ -72,5 +72,5 @@ int main(){
     catch(std::exception &e){
         std::cout<<"Unknown error "<<e.what()<<std::endl;
     }
-     */
+
 }

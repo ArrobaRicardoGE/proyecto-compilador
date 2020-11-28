@@ -7,7 +7,7 @@
 #include "util.h"
 
 namespace gm{
-    const std::unordered_map<int,int> ORDER_OPERATIONS(
+    const std::unordered_map<int,int> OPERATIONS_ORDER(
             {
                 {'(',7},
                 {')',7},
@@ -21,7 +21,7 @@ namespace gm{
                 {'<',4},
                 {IGUAL,4},       //==
                 {DIFERENTE,4},   //!=
-                {NOT,3},         //!=
+                {NOT,3},         //!!
                 {OR,2},          //||
                 {AND,1}          //&&
             });
@@ -35,5 +35,6 @@ namespace gm{
         static bool isoperator(int c);
         static bool isgreater(int c1, int c2);
         static int operation(int a, int b, int c);
+
     };
 }

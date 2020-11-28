@@ -43,10 +43,17 @@ namespace gm{
             qu.pop();
             if(isoperator(current)){
                 try{
+                    if(st.empty())
+                        throw std::exception();
                     int der = st.top();
                     st.pop();
-                    int izq = st.top();
-                    st.pop();
+                    int izq = 0;
+                    if(current != WORD_MAP.at("!!")){
+                        if(st.empty())
+                            throw std::exception();
+                        izq = st.top();
+                        st.pop();
+                    }
                     st.push(operation(izq,der,current));
                 }
                 catch (std::exception &e) {
@@ -60,12 +67,12 @@ namespace gm{
     }
 
     bool expressionEvaluator::isoperator(int c) {
-        return ORDER_OPERATIONS.find(c) != ORDER_OPERATIONS.end();
+        return OPERATIONS_ORDER.find(c) != OPERATIONS_ORDER.end();
     }
 
     bool expressionEvaluator::isgreater(int c1, int c2) {
         if(c1 == '(')return false;
-        return ORDER_OPERATIONS.find(c1)->second >= ORDER_OPERATIONS.find(c2)->second;
+        return OPERATIONS_ORDER.find(c1)->second >= OPERATIONS_ORDER.find(c2)->second;
     }
 
     int expressionEvaluator::operation(int a, int b, int c) {
@@ -91,8 +98,7 @@ namespace gm{
             case DIFERENTE:
                 return int(a != b);
             case NOT:
-                //ver que hacer
-                return int(!a);
+                return int(!b);
             case OR:
                 return int(a || b);
             case AND:

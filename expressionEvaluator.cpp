@@ -3,61 +3,52 @@
 namespace gm{
     expressionEvaluator::expressionEvaluator() = default;
 
-    int expressionEvaluator::evaluate(std::vector<int> &tokens, std::vector<std::string> &values) {
-        //Ajustar esto para float
-        int i = 0;
-        int lastToken = WORD_MAP.at("(");
-        for(int token:tokens){
-            if(isoperator(token)){
-                if(token == WORD_MAP.at("(")) st.push(token);
-                else if(token == WORD_MAP.at(")")){
-                    while(!st.empty() && st.top() != WORD_MAP.at("(")){
+    double expressionEvaluator::evaluate(std::vector<int> &ids, std::vector<std::string> &values) {
+        std::vector<Token> tokens;
+        convertTokens(ids,values,tokens);
+        print(tokens);
+        Token lastToken(WORD_MAP.at("("),WORD_MAP.at("("));
+        for(Token token:tokens){
+            if(isoperator(token.id)){
+                if(token.id == WORD_MAP.at("(")) st.push(token);
+                else if(token.id == WORD_MAP.at(")")){
+                    while(!st.empty() && st.top().id != WORD_MAP.at("(")){
                         qu.push(st.top());
                         st.pop();
                     }
                     //Parentesis que no abre
-                    if(st.empty())throw CompilationException("Invalid expression, open parenthesis",0);
+                    if(st.empty())throw CompilationException("Unmatched ')'",0);
                     st.pop();
                 }
-                else{
-                    //Caso simbolo +/-
-                    if(token == WORD_MAP.at("-") || token == WORD_MAP.at("+")){
-                        //Si esta como simbolo de operacion
-                        if(lastToken == WORD_MAP.at(")") || OPERATIONS_ORDER.find(lastToken) == OPERATIONS_ORDER.end())
-                            pushToken(WORD_MAP.at("+"));
-                        qu.push((token == WORD_MAP.at("-")?-1:1));
-                        pushToken(WORD_MAP.at("*"));
-                    }
-                    else pushToken(token);
-                }
+                else
+                    pushToken(token);
             }
-            else qu.push(std::stoi(values[i]));
+            else qu.push(token);
             lastToken = token;
-            i++;
         }
         while(!st.empty()){
             //Parentesis que no cierra
-            if(st.top() == WORD_MAP.at("(")) throw CompilationException("Invalid expression. Closed parenthesis",0);
+            if(st.top().id == WORD_MAP.at("(")) throw CompilationException("Unmatched '('",0);
             qu.push(st.top());
             st.pop();
         }
         while(!qu.empty()){
-            int current = qu.front();
+            Token current = qu.front();
             qu.pop();
-            if(isoperator(current)){
+            if(isoperator(current.id)){
                 try{
                     if(st.empty())
                         throw std::exception();
-                    int der = st.top();
+                    double der = st.top().value;
                     st.pop();
-                    int izq = 0;
-                    if(current != WORD_MAP.at("!!")){
+                    double izq = 0.0;
+                    if(current.id != WORD_MAP.at("!!")){
                         if(st.empty())
                             throw std::exception();
-                        izq = st.top();
+                        izq = st.top().value;
                         st.pop();
                     }
-                    st.push(operation(izq,der,current));
+                    st.push(Token(FLOAT_VALUE,operation(izq,der,current.id)));
                 }
                 catch (std::exception &e) {
                     throw CompilationException("Invalid expression1",0);
@@ -66,12 +57,12 @@ namespace gm{
             else st.push(current);
         }
         if(st.size() != 1)throw CompilationException("Invalid expression2",0);
-        return st.top();
+        return st.top().value;
     }
 
-    void expressionEvaluator::pushToken(int token) {
+    void expressionEvaluator::pushToken(Token token) {
         while(!st.empty()){
-            if(isgreater(st.top(),token)){
+            if(isgreater(st.top().id,token.id)){
                 qu.push(st.top());
                 st.pop();
             }
@@ -89,7 +80,7 @@ namespace gm{
         return OPERATIONS_ORDER.find(c1)->second >= OPERATIONS_ORDER.find(c2)->second;
     }
 
-    int expressionEvaluator::operation(int a, int b, int c) {
+    double expressionEvaluator::operation(double a, double b, int c) {
         switch (c) {
             case '*':
                 return a*b;
@@ -108,21 +99,86 @@ namespace gm{
             case '<':
                 return (int)(a < b);
             case IGUAL:
-                return int(a == b);
+                return (int)(a == b);
             case DIFERENTE:
-                return int(a != b);
+                return (int)(a != b);
             case NOT:
-                return int(!b);
+                return (int)(!(bool)b);
             case OR:
-                return int(a || b);
+                return (int)((bool)a || (bool)b);
             case AND:
-                return int(a && b);
+                return (int)((bool)a && (bool)b);
             default:
                 return 0;
         }
     }
-    void expressionEvaluator::getVariables(std::vector<int> &tokens, std::vector<std::string> &values) {
-        //Replace variables
-        return;
+
+    void expressionEvaluator::convertTokens(std::vector<int> &ids, std::vector<std::string> &values,
+                                            std::vector<Token> &tokens) {
+        //Validar parentesis
+        std::stack<int>pBalance;
+        std::unordered_map<int,int>pClosing;
+        for(int i = 0;i<ids.size();i++){
+            if(ids[i] == WORD_MAP.at(")")){
+                if(pBalance.empty())
+                    throw CompilationException("Unmatched ')'",0);
+                pClosing[pBalance.top()] = i;
+                pBalance.pop();
+            }
+            if(ids[i] == WORD_MAP.at("("))
+                pBalance.push(i);
+        }
+        if(!pBalance.empty())throw CompilationException("Unmatched '('",0);
+
+        //Crear lista de tokens, sustituir [-] por [-1,*] y los [+] por [1,+]
+        int i = 0;
+        int previous = WORD_MAP.at("(");
+        std::priority_queue<int,std::vector<int>,std::greater<>>pending;
+        while(i<ids.size()){
+            //Variable
+            if(ids[i] == VARIABLE){
+                //Sacar de la tabla de variables
+                double value = 0;
+                tokens.emplace_back(ids[i],value);
+            }
+            //Operador
+            else if(isoperator(ids[i])){
+                //Caso +/-
+                if(ids[i] == WORD_MAP.at("+") || ids[i] == WORD_MAP.at("-")){
+                    if(previous == WORD_MAP.at(")") || !isoperator(previous))
+                        tokens.emplace_back(WORD_MAP.at("+"),WORD_MAP.at("+"));
+                    tokens.emplace_back(WORD_MAP.at("("),WORD_MAP.at("("));
+                    tokens.emplace_back(INTEGER_VALUE,(ids[i] == WORD_MAP.at("-")?-1:1));
+                    tokens.emplace_back(WORD_MAP.at("*"),WORD_MAP.at("*"));
+                    if(i+1<ids.size() && ids[i+1] == WORD_MAP.at("("))
+                        pending.push(pClosing[i+1]);
+                    else pending.push(i+1);
+                }
+                //Otro caso
+                else tokens.emplace_back(ids[i],ids[i]);
+            }
+            //Valor
+            else
+                tokens.emplace_back(ids[i],std::stod(values[i]));
+            if(!pending.empty() && pending.top() == i){
+                tokens.emplace_back(WORD_MAP.at(")"),WORD_MAP.at(")"));
+                pending.pop();
+            }
+            previous = ids[i];
+            i++;
+        }
+        while(!pending.empty()){
+            tokens.emplace_back(WORD_MAP.at(")"),WORD_MAP.at(")"));
+            pending.pop();
+        }
+    }
+
+    void expressionEvaluator::print(std::vector<Token> &tokens) {
+        for(auto i:tokens){
+            if(isoperator(i.id))
+                std::cout<<(char)i.id<<' ';
+            else std::cout<<i.value<<' ';
+        }
+        std::cout<<std::endl;
     }
 }

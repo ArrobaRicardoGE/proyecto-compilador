@@ -4,6 +4,7 @@
 #include <stack>
 #include <queue>
 #include <unordered_map>
+#include <math.h>
 #include "util.h"
 
 namespace gm{
@@ -28,15 +29,20 @@ namespace gm{
     class expressionEvaluator{
     public:
         expressionEvaluator();
-        int evaluate(std::vector<int> &tokens, std::vector<std::string> &values);
+        double evaluate(std::vector<int> &tokens, std::vector<std::string> &values);
     private:
-        std::stack<int> st;
-        std::queue<int> qu;
-        void pushToken(int token);
-        static void getVariables(std::vector<int> &tokens, std::vector<std::string> &values);
+        struct Token{
+            int id;
+            double value;
+            Token(int id,double value):id(id),value(value){};
+        };
+        std::stack<Token> st;
+        std::queue<Token> qu;
+        void pushToken(Token token);
+        static void convertTokens(std::vector<int> &ids, std::vector<std::string> &values, std::vector<Token> &tokens);
         static bool isoperator(int c);
         static bool isgreater(int c1, int c2);
-        static int operation(int a, int b, int c);
-
+        static double operation(double a, double b, int c);
+        static void print(std::vector<Token> &tokens);
     };
 }

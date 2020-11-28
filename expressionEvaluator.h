@@ -32,6 +32,8 @@ namespace gm{
     private:
         std::stack<int> st;
         std::queue<int> qu;
+        void pushToken(int token);
+        static void getVariables(std::vector<int> &tokens, std::vector<std::string> &values);
         static bool isoperator(int c);
         static bool isgreater(int c1, int c2);
         static int operation(int a, int b, int c);

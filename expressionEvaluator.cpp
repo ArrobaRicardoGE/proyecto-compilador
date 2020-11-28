@@ -6,35 +6,38 @@ namespace gm{
     int expressionEvaluator::evaluate(std::vector<int> &tokens, std::vector<std::string> &values) {
         //Ajustar esto para float
         int i = 0;
+        int lastToken = WORD_MAP.at("(");
         for(int token:tokens){
             if(isoperator(token)){
-                if(token == '(') st.push(token);
-                else if(token == ')'){
-                    while(!st.empty() && st.top() != '('){
+                if(token == WORD_MAP.at("(")) st.push(token);
+                else if(token == WORD_MAP.at(")")){
+                    while(!st.empty() && st.top() != WORD_MAP.at("(")){
                         qu.push(st.top());
                         st.pop();
                     }
                     //Parentesis que no abre
-                    if(st.empty())throw CompilationException("Invalid expression",0);
+                    if(st.empty())throw CompilationException("Invalid expression, open parenthesis",0);
                     st.pop();
                 }
                 else{
-                    while(!st.empty()){
-                        if(isgreater(st.top(),token)){
-                            qu.push(st.top());
-                            st.pop();
-                        }
-                        else break;
+                    //Caso simbolo +/-
+                    if(token == WORD_MAP.at("-") || token == WORD_MAP.at("+")){
+                        //Si esta como simbolo de operacion
+                        if(lastToken == WORD_MAP.at(")") || OPERATIONS_ORDER.find(lastToken) == OPERATIONS_ORDER.end())
+                            pushToken(WORD_MAP.at("+"));
+                        qu.push((token == WORD_MAP.at("-")?-1:1));
+                        pushToken(WORD_MAP.at("*"));
                     }
-                    st.push(token);
+                    else pushToken(token);
                 }
             }
             else qu.push(std::stoi(values[i]));
+            lastToken = token;
             i++;
         }
         while(!st.empty()){
             //Parentesis que no cierra
-            if(st.top() == '(') throw CompilationException("Invalid expression",0);
+            if(st.top() == WORD_MAP.at("(")) throw CompilationException("Invalid expression. Closed parenthesis",0);
             qu.push(st.top());
             st.pop();
         }
@@ -57,13 +60,24 @@ namespace gm{
                     st.push(operation(izq,der,current));
                 }
                 catch (std::exception &e) {
-                    throw CompilationException("Invalid expression",0);
+                    throw CompilationException("Invalid expression1",0);
                 }
             }
             else st.push(current);
         }
-        if(st.size() != 1)throw CompilationException("Invalid expression",0);
+        if(st.size() != 1)throw CompilationException("Invalid expression2",0);
         return st.top();
+    }
+
+    void expressionEvaluator::pushToken(int token) {
+        while(!st.empty()){
+            if(isgreater(st.top(),token)){
+                qu.push(st.top());
+                st.pop();
+            }
+            else break;
+        }
+        st.push(token);
     }
 
     bool expressionEvaluator::isoperator(int c) {
@@ -106,5 +120,9 @@ namespace gm{
             default:
                 return 0;
         }
+    }
+    void expressionEvaluator::getVariables(std::vector<int> &tokens, std::vector<std::string> &values) {
+        //Replace variables
+        return;
     }
 }

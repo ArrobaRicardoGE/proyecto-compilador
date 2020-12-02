@@ -5,7 +5,9 @@
 #include <queue>
 #include <unordered_map>
 #include <math.h>
+#include <memory>
 #include "util.h"
+#include "tablaDeValores.h"
 
 namespace gm{
     const std::unordered_map<int,int> OPERATIONS_ORDER(
@@ -29,7 +31,7 @@ namespace gm{
     class expressionEvaluator{
     public:
         expressionEvaluator();
-        double evaluate(std::vector<int> &tokens, std::vector<std::string> &values);
+        double evaluate(std::vector<int> &tokens, std::vector<std::string> &values, std::shared_ptr<tablaDeValores> tablaValores);
     private:
         struct Token{
             int id;

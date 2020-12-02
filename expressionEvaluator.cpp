@@ -3,7 +3,7 @@
 namespace gm{
     expressionEvaluator::expressionEvaluator() = default;
 
-    double expressionEvaluator::evaluate(std::vector<int> &ids, std::vector<std::string> &values) {
+    double expressionEvaluator::evaluate(std::vector<int> &ids, std::vector<std::string> &values, std::shared_ptr<tablaDeValores> tablaValores) {
         std::vector<Token> tokens;
         convertTokens(ids,values,tokens);
         print(tokens);

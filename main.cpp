@@ -51,9 +51,10 @@ int main(){
     }
     */
     tokenMatrix output;
+    std::shared_ptr<tablaDeValores> tabla;
     std::vector<std::vector<int>> ids;
     try{
-        lexicalAnalyzer().analyze(pathg+"expressionsTest.txt", output, ids);
+        lexicalAnalyzer().analyze(pathm+"expressionsTest.txt", output, ids);
         for(auto &line:output){
             std::cout<<line.second;
             for(auto &word:line.first){
@@ -62,7 +63,7 @@ int main(){
             std::cout<<std::endl;
         }
         for(int i = 0;i<output.size();i++){
-            std::cout<<expressionEvaluator().evaluate(ids[i],output[i].first)<<std::endl;
+            std::cout<<expressionEvaluator().evaluate(ids[i],output[i].first,tabla)<<std::endl;
         }
 
     }

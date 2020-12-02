@@ -118,7 +118,7 @@ namespace gm{
             {
                 //Implementar Break
             }
-            else if(ids[i].size() >= 1){
+            else if(!ids[i].empty()){
                 throw(CompilationException("Error sintactico", tokens[i].second));
             }
 

@@ -133,7 +133,7 @@ namespace gm{
         //Crear lista de tokens, sustituir [-] por [-1,*] y los [+] por [1,+]
         int i = 0;
         int previous = WORD_MAP.at("(");
-        std::priority_queue<int,std::vector<int>,std::greater<>>pending;
+        std::priority_queue<int,std::vector<int>,std::greater<int>>pending;
         while(i<ids.size()){
             //Variable
             if(ids[i] == VARIABLE){

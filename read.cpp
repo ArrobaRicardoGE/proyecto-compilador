@@ -3,7 +3,7 @@
 #include <utility>
 
 namespace gm{
-    read::read(std::vector<std::string> tokens_) : expresion(std::move(tokens_)) {}
+    read::read(std::vector<std::string>&& tokens_, std::vector<int>&& ids_) : expresion(std::move(tokens_), std::move(ids_)) {}
     void read::evaluar(int &a) {
         std::cout<<"Leyendo de consola"<<std::endl;
     }

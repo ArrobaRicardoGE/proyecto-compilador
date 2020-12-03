@@ -54,7 +54,7 @@ int main(){
     std::shared_ptr<tablaDeValores> tabla;
     std::vector<std::vector<int>> ids;
     try{
-        lexicalAnalyzer().analyze(pathg+"expressionsTest.txt", output, ids);
+        lexicalAnalyzer().analyze(pathm+"expressionsTest.txt", output, ids);
         for(auto &line:output){
             std::cout<<line.second;
             for(auto &word:line.first){

@@ -4,7 +4,7 @@
 namespace gm {
     class expresionMatematica : public expresion {
     public:
-        explicit expresionMatematica(std::vector<std::string> tokens_);
+        expresionMatematica(std::vector<std::string>&& tokens_, std::vector<int>&& ids_);
         ~expresionMatematica() = default;
 
         void evaluar(int& a) override;

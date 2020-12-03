@@ -5,7 +5,7 @@
 namespace gm {
     class read : public expresion {
     public:
-        explicit read(std::vector<std::string> tokens_);
+        read(std::vector<std::string>&& tokens_, std::vector<int>&& ids_);
 
         void evaluar(int& a) override;
         void evaluar(double& a) override;

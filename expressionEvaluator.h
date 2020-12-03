@@ -31,6 +31,7 @@ namespace gm{
     class expressionEvaluator{
     public:
         expressionEvaluator();
+        ~expressionEvaluator();
         double evaluate(std::vector<int> &tokens, std::vector<std::string> &values, std::shared_ptr<tablaDeValores> tablaValores);
     private:
         struct Token{
@@ -41,7 +42,7 @@ namespace gm{
         std::stack<Token> st;
         std::queue<Token> qu;
         void pushToken(Token token);
-        static void convertTokens(std::vector<int> &ids, std::vector<std::string> &values, std::vector<Token> &tokens);
+        static void convertTokens(std::vector<int> &ids, std::vector<std::string> &values, std::shared_ptr<tablaDeValores> table, std::vector<Token> &tokens);
         static bool isoperator(int c);
         static bool isgreater(int c1, int c2);
         static double operation(double a, double b, int c);

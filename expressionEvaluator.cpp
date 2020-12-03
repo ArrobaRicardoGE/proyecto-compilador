@@ -2,10 +2,10 @@
 
 namespace gm{
     expressionEvaluator::expressionEvaluator() = default;
-
+    expressionEvaluator::~expressionEvaluator() = default;
     double expressionEvaluator::evaluate(std::vector<int> &ids, std::vector<std::string> &values, std::shared_ptr<tablaDeValores> tablaValores) {
         std::vector<Token> tokens;
-        convertTokens(ids,values,tokens);
+        convertTokens(ids,values,tablaValores,tokens);
         print(tokens);
         Token lastToken(WORD_MAP.at("("),WORD_MAP.at("("));
         for(Token token:tokens){
@@ -114,7 +114,7 @@ namespace gm{
     }
 
     void expressionEvaluator::convertTokens(std::vector<int> &ids, std::vector<std::string> &values,
-                                            std::vector<Token> &tokens) {
+                                            std::shared_ptr<tablaDeValores> table, std::vector<Token> &tokens) {
         //Validar parentesis
         std::stack<int>pBalance;
         std::unordered_map<int,int>pClosing;
@@ -138,8 +138,12 @@ namespace gm{
             //Variable
             if(ids[i] == VARIABLE){
                 //Sacar de la tabla de variables
-                double value = 0;
-                tokens.emplace_back(ids[i],value);
+                int varType;
+                double valueN;
+                std::string valueS;
+                table->getValue(values[i],varType,valueN,valueS);
+                if(varType == STRING)throw CompilationException("No es posible hacer operaciones con strings",0);
+                tokens.emplace_back(ids[i],valueN);
             }
             //Operador
             else if(isoperator(ids[i])){
@@ -157,6 +161,9 @@ namespace gm{
                 //Otro caso
                 else tokens.emplace_back(ids[i],ids[i]);
             }
+            //Bool
+            else if(ids[i] == TRUE || ids[i] == FALSE)
+                tokens.emplace_back(ids[i],ids[i] == TRUE?1:0);
             //Valor
             else
                 tokens.emplace_back(ids[i],std::stod(values[i]));

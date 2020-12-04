@@ -7,6 +7,8 @@ namespace gm{
         int a;
         std::cout<<"Dentro de ciclo while {"<<std::endl;
         std::cout<<"Evaluando condicion del while"<<std::endl;
+
+
         condicion->evaluar(a);
         for(const auto& x : instrucciones)
         {

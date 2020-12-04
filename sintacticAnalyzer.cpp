@@ -59,12 +59,12 @@ namespace gm{
 
                 }
             }
-            else if(ids[i][0] == PRINT)
+            else if(ids[i][0] == PRINT && ids[i].size()>=4)
             {
                 std::vector<std::string> tokensExpresion;
                 std::vector<int> idsExpresion;
-                copia(i, 1, ids[i].size(), tokens, tokensExpresion);
-                copiaIds(i,1,ids[i].size(), ids, idsExpresion);
+                copia(i, 2, ids[i].size()-1, tokens, tokensExpresion);
+                copiaIds(i,2,ids[i].size()-1, ids, idsExpresion);
                 std::unique_ptr<expresionMatematica> evaluable(new expresionMatematica(std::move(tokensExpresion), std::move(idsExpresion)));
                 arbolParcial.emplace_back(std::unique_ptr<print>(new print(std::move(evaluable))));
             }

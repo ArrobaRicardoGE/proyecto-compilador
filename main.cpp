@@ -23,7 +23,7 @@ int main(){
     std::vector<std::unique_ptr<instruccion>> instrucciones;
     try{
         std::cout<<"Analisis Léxico"<<std::endl;
-        lexicalAnalyzer().analyze(pathm+"testFile.txt", output, ids);
+        lexicalAnalyzer().analyze(pathm+"testFile2.txt", output, ids);
         for(auto &line:output){
             for(auto &word:line.first){
                 std::cout<<line.second<<" ["<<word<<"] ";
@@ -46,7 +46,7 @@ int main(){
 
 
 
-
+        std::cout <<"Iniciando ejecucion:"<<std::endl;
         for(const auto& x : instrucciones)
         {
             x->ejecutar();

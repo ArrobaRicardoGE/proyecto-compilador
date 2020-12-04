@@ -5,8 +5,15 @@ namespace gm{
     print::print(std::unique_ptr<expresion> evaluable_) : evaluable(std::move(evaluable_)) {}
 
     void print::ejecutar() {
-        std::cout<<"Imprimiendo ";
-        int a = 3;
+        double a;
+        std::string b;
         evaluable->evaluar(a);
+        evaluable->evaluar(b);
+        if(b == evaluable->dummystring){
+            std::cout<<a<<std::endl;
+        }
+        else{
+            std::cout<<b<<std::endl;
+        }
     }
 }

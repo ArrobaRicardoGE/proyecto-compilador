@@ -1,0 +1,7 @@
+
+Print("holaaaa")
+
+
+Print(3+4.5)
+Print(8)
+Print("jose")

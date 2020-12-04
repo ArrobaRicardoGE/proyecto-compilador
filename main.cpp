@@ -11,7 +11,7 @@ using namespace gm;
 const std::string pathm = "D:/TODO/Programas Weeb/proyecto-compilador/";
 const std::string pathg = "C:/users/ricar/documents/up/3/DSAII/3/proyecto-compilador/";
 
-std::shared_ptr<tablaDeValores> table2;
+std::shared_ptr<tablaDeValores> table2(new tablaDeValores);
 std::shared_ptr<tablaDeValores> expresion::table = table2;
 std::shared_ptr<tablaDeValores> instruccion::table = table2;
 
@@ -22,7 +22,7 @@ int main(){
     std::vector<std::vector<int>> ids;
     std::vector<std::unique_ptr<instruccion>> instrucciones;
     try{
-        std::cout<<"Analisis Léxico"<<std::endl;
+        std::cout<<"Analisis Lexico"<<std::endl;
         lexicalAnalyzer().analyze(pathm+"testFile2.txt", output, ids);
         for(auto &line:output){
             for(auto &word:line.first){
@@ -42,9 +42,6 @@ int main(){
         std::cout<<std::endl;
         std::cout<<"Analisis Semantico"<<std::endl;
         sintacticAnalyzer().analyze(output, ids, instrucciones);
-
-
-
 
         std::cout <<"Iniciando ejecucion:"<<std::endl;
         for(const auto& x : instrucciones)

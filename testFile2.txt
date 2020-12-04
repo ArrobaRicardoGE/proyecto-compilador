@@ -5,3 +5,31 @@ Print("holaaaa")
 Print(3+4.5)
 Print(8)
 Print("jose")
+int a := 4
+Print(a)
+a := 11+6
+Print(a)
+a := a/2
+Print(a)
+a := a*2
+Print(a)
+a := 3.5
+Print(a)
+Print(a*2-a)
+bool b := 0
+Print(b)
+b :=  1 || b
+Print("B vale")
+Print(b)
+b := 0 && b
+Print("B vale")
+Print(b)
+Print( !!b)
+
+b := b >= -3
+Print( b )
+Print("HOLI")
+
+float c := 3.1416
+Print( c*23/23 )
+

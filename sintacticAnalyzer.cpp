@@ -29,8 +29,8 @@ namespace gm{
             {
                 std::vector<std::string> tokensExpresion;
                 std::vector<int> idsExpresion;
-                copia(i,3,ids[i].size(),tokens, tokensExpresion);
-                copiaIds(i,3,ids[i].size(),ids,idsExpresion);
+                copia(i,2,ids[i].size(),tokens, tokensExpresion);
+                copiaIds(i,2,ids[i].size(),ids,idsExpresion);
 
                 std::unique_ptr<expresionMatematica> evaluable(new expresionMatematica(std::move(tokensExpresion),std::move(idsExpresion)));
                 arbolParcial.emplace_back(std::unique_ptr<asignar>(new asignar(tokens[i].first[0],std::move(evaluable)))); //remplazar con make_unique en c++14

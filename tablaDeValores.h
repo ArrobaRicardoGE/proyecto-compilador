@@ -16,8 +16,10 @@ namespace gm {
         std::map<std::string, int> variableType;
         std::map<std::string, double> numericVariables;
         std::map<std::string, std::string> stringVariables;
-        const std::string dummyString = "dummyString123456790";
-        const double dummyDouble = 102938475.1029348457;
+
+        const int dummyint = -310293485;
+        const double dummyDouble  = 3.98766543;
+        const std::string dummyString = "hey, i am a dummy string 1234567";
     };
 }
 

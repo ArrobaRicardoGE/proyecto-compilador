@@ -21,12 +21,14 @@ namespace gm{
     }
 
     void tablaDeValores::addValue(const std::string &variable, int type) {
-        auto it = variableType.find(variable);
-        if(it != variableType.end())
-        {
-            throw CompilationException("Doble declaracion de variable " + variable, 0);
-        }
-        variableType[variable] = type;
+       auto it = variableType.find(variable);
+       if(it != variableType.end())
+       {
+          throw CompilationException("Doble declaracion de variable " + variable, 0);
+       }
+
+
+       variableType[variable] = type;
     }
 
     void tablaDeValores::changeValue(const std::string &variable, int &getType, double numericValue,

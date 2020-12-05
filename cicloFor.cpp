@@ -8,15 +8,46 @@ namespace gm{
                        std::vector<std::unique_ptr<instruccion>>&& instrucciones_, std::string variable_) : iterador(std::move(iterador_)), valor1(std::move(valor1_)), instrucciones(std::move(instrucciones_)), variable(std::move(variable_)) {}
 
     void cicloFor::ejecutar() {
-        std::cout<<"Dentro de ciclo for, ";
+        int valorInicio = 0;
+        iterador->expr->evaluar(valorInicio);
+        int valorFinal = 0;
+        valor1->evaluar(valorFinal);
+        int change = 1;
         iterador->ejecutar();
-        std::cout<<"{"<<std::endl;
-        for(const auto& x : instrucciones)
-        {
-            std::cout<<"\t";
-            x->ejecutar();
+
+        if(valorInicio == valor1->dummyint || valorFinal == valor1->dummyint){
+            throw(CompilationException("Error de ejecucion en For", 0));
         }
-        std::cout<<"} Afuera de ciclo for"<<std::endl;
+        else if(valorInicio < valorFinal){
+            change = 1;
+            while(valorFinal > valorInicio)
+            {
+                for(const auto& x : instrucciones){
+                    x->ejecutar();
+                }
+                int tipo = 0;
+                std::string dummy;
+                double getval = 0;
+                table->getValue(variable, tipo, getval, dummy);
+                valorInicio = (int)getval + change;
+                table->changeValue(variable, tipo, valorInicio, dummy);
+            }
+        }
+        else{
+            change = -1;
+            while(valorFinal < valorInicio)
+            {
+                for(const auto& x : instrucciones){
+                    x->ejecutar();
+                }
+                int tipo = 0;
+                std::string dummy;
+                double getval = 0;
+                table->getValue(variable, tipo, getval, dummy);
+                valorInicio = (int)getval + change;
+                table->changeValue(variable, tipo, valorInicio, dummy);
+            }
+        }
     }
 
 }

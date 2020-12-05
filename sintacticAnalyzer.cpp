@@ -96,8 +96,8 @@ namespace gm{
                     std::string variable = tokens[i].first[1];
                     copia(i,3, j,tokens, tokensExpresion1);
                     copiaIds(i,3,j, ids, idsExpresion1);
-                    copia(i, j, ids[i].size()-1, tokens, tokensExpresion2);
-                    copiaIds(i,j,ids[i].size()-1, ids, idsExpresion2);
+                    copia(i, j+1, ids[i].size()-1, tokens, tokensExpresion2);
+                    copiaIds(i,j+1,ids[i].size()-1, ids, idsExpresion2);
                     std::unique_ptr<expresionMatematica> exp1(new expresionMatematica(std::move(tokensExpresion1), std::move(idsExpresion1)));
                     std::unique_ptr<expresionMatematica> exp2(new expresionMatematica(std::move(tokensExpresion2), std::move(idsExpresion2)));
                     std::unique_ptr<asignar> asignacion(new asignar(variable,std::move(exp1)));
@@ -109,7 +109,7 @@ namespace gm{
 
                 }
                 else{
-                    std::cout<<"ERROR EN SINTAXIS DEL FOR en linea "<<tokens[i].second<<std::endl;
+                    throw(CompilationException("Error sintactico en declaracion de ciclo For", tokens[i].second));
                 }
             }
             else if(ids[i][0] == IF && ids[i][ids[i].size()-1] == '{')

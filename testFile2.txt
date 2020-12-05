@@ -65,3 +65,12 @@ while( i < 10){
 j:= 0
 i := i+1
 }
+
+for i := 10 to -6{
+for j := 0 to 2{
+
+Print("i, j")
+Print(i)
+Print(j)
+}
+}

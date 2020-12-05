@@ -33,3 +33,35 @@ Print("HOLI")
 float c := 3.1416
 Print( c*23/23 )
 
+
+bool pp := False
+bool cc := True
+
+
+# if
+if( 1> 2){
+Print("Funciona")
+}
+else{
+Print("Pues tambien funciona")
+if( pp  || cc){
+Print("al parecer funciona esta madre")
+}
+else{
+Print(pp)
+Print("pp")
+}
+}
+
+int i := 0
+int j := 0
+while( i < 10){
+    while( j< 3){
+        Print("i, j")
+        Print(i)
+        Print(j)
+        j := j+1
+        }
+j:= 0
+i := i+1
+}

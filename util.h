@@ -1,4 +1,5 @@
 #pragma once
+#include <utility>
 #include <vector>
 #include <iostream>
 #include <unordered_map>
@@ -6,6 +7,7 @@
 #include <string>
 
 namespace gm {
+    using tokenMatrix = std::vector<std::pair<std::vector<std::string>,int>>;
     const char DELIMITER = ' ';
     const int BOOL = 200;
     const int INT = 201;
@@ -29,6 +31,10 @@ namespace gm {
     const int TO = 705;
     const int READ = 800;
     const int PRINT = 801;
+    const int INTEGER_VALUE = 900;
+    const int FLOAT_VALUE = 901;
+    const int STRING_VALUE = 902;
+    const int VARIABLE = 1000;
 
     const std::unordered_map<std::string, int> WORD_MAP(
             {
@@ -64,16 +70,23 @@ namespace gm {
                 {"to",TO},
                 {"{", '{'},
                 {"}", '}'},
-                {"Read()", READ},
-                {"Print(", PRINT}
+                {"Read", READ},
+                {"Print", PRINT},
+
             });
 
     void split(const std::string& s, std::vector<std::string>& answer, char delimiter = DELIMITER);
-    std::vector<std::vector<std::string>> analyzeSyntax(const std::string& filename);
-    void getTokens(const std::string &inputLine, std::vector<std::string>& tokenList);
-    void wordToken(const std::string &inputLine, int &it, std::string &token);
-    void numericToken(const std::string &inputLine, int &it, std::string &token);
-    void symbolToken(const std::string &inputLine, int &it, std::string &token);
-    void stringToken(const std::string &inputLine, int &it, std::string &token);
+    bool issymbol(char c);
+
+    class CompilationException:virtual public std::exception{
+    private:
+        int lineNum;
+        std::string additionalInfo;
+    public:
+        CompilationException(std::string additionalInfo, int lineNum):additionalInfo(std::move(additionalInfo)),lineNum(lineNum){};
+        virtual const char* what() const noexcept;
+        virtual int line() const noexcept;
+        virtual std::string info() noexcept;
+    };
 } //gm
 

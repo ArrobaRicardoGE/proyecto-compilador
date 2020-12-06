@@ -88,5 +88,8 @@ namespace gm {
         virtual int line() const noexcept;
         virtual std::string info() noexcept;
     };
+    struct Debug{
+        static bool debug;
+    };
 } //gm
 

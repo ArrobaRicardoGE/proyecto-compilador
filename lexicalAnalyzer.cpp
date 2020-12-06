@@ -58,8 +58,7 @@ namespace gm{
         auto mapIt = WORD_MAP.find(token);
         if(mapIt == WORD_MAP.end()){
             if(variable(token)) return VARIABLE;
-            //else return -1;
-            else throw CompilationException(std::string("Unexpected token"+token),lineNo);
+            else throw CompilationException(std::string("Token imprevisto "+token),lineNo);
         }
         else return mapIt->second;
     }
@@ -109,7 +108,7 @@ namespace gm{
         int it = 0;
         while(it < inputLine.size()){
             //whitespace
-            if(inputLine[it] == ' '){
+            if(inputLine[it] == ' ' || inputLine[it] == '\t'){
                 it++;
                 continue;
             }
@@ -131,7 +130,7 @@ namespace gm{
                 symbolToken(inputLine,it,token);
             else{
                 token += inputLine[it];
-                throw CompilationException(std::string("Unexpected token "+token),lineNo);
+                throw CompilationException(std::string("Token imprevisto "+token),lineNo);
             }
             tokenList.emplace_back(token);
         }
@@ -153,6 +152,6 @@ namespace gm{
             }
             inputFile.close();
         }
-        else throw CompilationException("Unable to open file",0);
+        else throw CompilationException("No se pudo abrir el archivo " + filename,0);
     }
 }

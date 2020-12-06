@@ -3,7 +3,7 @@
 #include <utility>
 
 namespace gm{
-
+    bool Debug::debug = false;
     void split(const std::string& s, std::vector<std::string>& answer, char delimiter){
         std::string partialAns;
         for( const auto x: s)
@@ -32,7 +32,7 @@ namespace gm{
                || c == '(' || c == ')' || c == '{' || c == '}';
     }
     const char* CompilationException:: what() const noexcept{
-        return "Compilation error";
+        return "Error de compilacion o ejecucion";
     }
 
     int CompilationException::line() const noexcept{

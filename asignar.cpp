@@ -14,7 +14,7 @@ namespace gm{
             std::string value;
             expr->evaluar(value);
             if(value == expr->dummystring){
-                throw(CompilationException("Asignacion entre tipos no compatibles, con variable " + variable, 0));
+                throw(CompilationException("Asignacion entre tipos no compatibles, la variable " + variable + " no coincide", 0));
             }
 
             double dummyDouble = 0;
@@ -25,7 +25,7 @@ namespace gm{
             double value;
             expr->evaluar(value);
             if(value == expr->dummydouble){
-                throw(CompilationException("Asignacion entre tipos no compatibles, con variable " + variable, 0));
+                throw(CompilationException("Asignacion entre tipos no compatibles, la variable " + variable + " no coincide", 0));
             }
             std::string dummyString;
             table->changeValue(variable, tipo, value, dummyString);
@@ -35,7 +35,7 @@ namespace gm{
 
             expr->evaluar(value);
             if(value == expr->dummyint){
-                throw(CompilationException("Asignacion entre tipos no compatibles, con variable " + variable, 0));
+                throw(CompilationException("Asignacion entre tipos no compatibles, la variable " + variable + " no coincide", 0));
             }
             std::string dummyString;
             table->changeValue(variable, tipo, value, dummyString);
@@ -46,7 +46,7 @@ namespace gm{
             int value;
             expr->evaluar(value);
             if(value == expr->dummyint){
-                throw(CompilationException("Asignacion entre tipos no compatibles, con variable " + variable, 0));
+                throw(CompilationException("Asignacion entre tipos no compatibles, la variable " + variable + " no coincide", 0));
             }
             if(value != 0) value = 1;
 
@@ -55,7 +55,7 @@ namespace gm{
 
         }
         else{
-            throw(CompilationException("Tipo de variable "+ variable + " no encontrado", 0));
+            throw(CompilationException("El tipo "+variable+" no existe", 0));
         }
 
     }

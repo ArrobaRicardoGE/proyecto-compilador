@@ -1,0 +1,11 @@
+int n := Read()
+float sum := 0
+int cont := 0
+
+float calif := 0
+for cont := 0 to n{
+    calif := Read()
+    sum := sum + calif
+}
+
+Print(sum/n)

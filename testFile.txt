@@ -6,20 +6,12 @@ Print("holaaaa")
 
 int j := 3
 for j := 5 to 14{
-    Print(i)
-    break
+    Print(j)
     #Ya funcionan los errores de compilacion por tokens desconocidos
 }
 
-while a != True{
-    float a := Read()
-    Print(a+123.123)
-    Print( a * 123333.4 )
-    Print(b - 544)
-}
-
 int i := 0
-int j := 1
+j := 1
 for pp := 2 to 14{
     for i := 6 to 2 {
         x := x + i*j

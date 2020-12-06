@@ -58,8 +58,7 @@ namespace gm{
         auto mapIt = WORD_MAP.find(token);
         if(mapIt == WORD_MAP.end()){
             if(variable(token)) return VARIABLE;
-            //else return -1;
-            else throw CompilationException(std::string("Unexpected token"+token),lineNo);
+            else throw CompilationException(std::string("Token imprevisto "+token),lineNo);
         }
         else return mapIt->second;
     }
@@ -131,7 +130,7 @@ namespace gm{
                 symbolToken(inputLine,it,token);
             else{
                 token += inputLine[it];
-                throw CompilationException(std::string("Unexpected token "+token),lineNo);
+                throw CompilationException(std::string("Token imprevisto "+token),lineNo);
             }
             tokenList.emplace_back(token);
         }

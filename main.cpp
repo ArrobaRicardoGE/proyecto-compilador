@@ -16,18 +16,18 @@ std::shared_ptr<tablaDeValores> expresion::table = table2;
 std::shared_ptr<tablaDeValores> instruccion::table = table2;
 
 int main(){
-    //Driver program to test the syntax analyzer
-
     tokenMatrix output;
     std::vector<std::vector<int>> ids;
     std::vector<std::unique_ptr<instruccion>> instrucciones;
     try{
         std::cout<<"Analisis Lexico"<<std::endl;
-        lexicalAnalyzer().analyze(pathm+"testFile2.txt", output, ids);
+        lexicalAnalyzer().analyze(pathg + "testFile3.txt", output, ids);
         for(auto &line:output){
+            std::cout<<line.second<<' ';
             for(auto &word:line.first){
-                std::cout<<line.second<<" ["<<word<<"] ";
+                std::cout<<" ["<<word<<"] ";
             }
+
             std::cout<<std::endl;
         }
 
@@ -40,10 +40,10 @@ int main(){
             std::cout<<std::endl;
         }
         std::cout<<std::endl;
-        std::cout<<"Analisis Semantico"<<std::endl;
+        std::cout<<"Analisis Sintactico"<<std::endl;
         sintacticAnalyzer().analyze(output, ids, instrucciones);
 
-        std::cout <<"Iniciando ejecucion:"<<std::endl;
+        std::cout <<"Iniciando ejecucion (analisis semantico):"<<std::endl;
         for(const auto& x : instrucciones)
         {
             x->ejecutar();
@@ -55,32 +55,6 @@ int main(){
         std::cout<<e.what()<<" in line "<<e.line()<<":\n"<<e.info();
     }
     catch(std::exception &e){
-        std::cout<<"Unknown error "<<e.what()<<std::endl;
+        std::cout<<"Error desconocido "<<e.what()<<std::endl;
     }
-    /*
-
-    tokenMatrix output;
-    std::shared_ptr<tablaDeValores> tabla;
-    std::vector<std::vector<int>> ids;
-    try{
-        lexicalAnalyzer().analyze(pathm+"expressionsTest.txt", output, ids);
-        for(auto &line:output){
-            std::cout<<line.second;
-            for(auto &word:line.first){
-                std::cout<<" ["<<word<<"] ";
-            }
-            std::cout<<std::endl;
-        }
-        for(int i = 0;i<output.size();i++){
-            std::cout<<expressionEvaluator().evaluate(ids[i],output[i].first,tabla)<<std::endl;
-        }
-
-    }
-    catch(CompilationException &e){
-        std::cout<<e.what()<<" in line "<<e.line()<<":\n"<<e.info();
-    }
-    catch(std::exception &e){
-        std::cout<<"Unknown error "<<e.what()<<std::endl;
-    }
- */
 }

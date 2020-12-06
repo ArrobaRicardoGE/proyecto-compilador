@@ -17,7 +17,7 @@ namespace gm{
                         st.pop();
                     }
                     //Parentesis que no abre
-                    if(st.empty())throw CompilationException("Unmatched ')'",0);
+                    if(st.empty())throw CompilationException("El parentesis ')' no coincide",0);
                     st.pop();
                 }
                 else
@@ -28,7 +28,7 @@ namespace gm{
         }
         while(!st.empty()){
             //Parentesis que no cierra
-            if(st.top().id == WORD_MAP.at("(")) throw CompilationException("Unmatched '('",0);
+            if(st.top().id == WORD_MAP.at("(")) throw CompilationException("El parentesis '(' no coincide",0);
             qu.push(st.top());
             st.pop();
         }
@@ -51,12 +51,12 @@ namespace gm{
                     st.push(Token(FLOAT_VALUE,operation(izq,der,current.id)));
                 }
                 catch (std::exception &e) {
-                    throw CompilationException("Invalid expression1",0);
+                    throw CompilationException("Expresion invalida",0);
                 }
             }
             else st.push(current);
         }
-        if(st.size() != 1)throw CompilationException("Invalid expression2",0);
+        if(st.size() != 1)throw CompilationException("Expresion invalida",0);
         return st.top().value;
     }
 
@@ -121,14 +121,14 @@ namespace gm{
         for(int i = 0;i<ids.size();i++){
             if(ids[i] == WORD_MAP.at(")")){
                 if(pBalance.empty())
-                    throw CompilationException("Unmatched ')'",0);
+                    throw CompilationException("El parentesis ')' no coincide",0);
                 pClosing[pBalance.top()] = i;
                 pBalance.pop();
             }
             if(ids[i] == WORD_MAP.at("("))
                 pBalance.push(i);
         }
-        if(!pBalance.empty())throw CompilationException("Unmatched '('",0);
+        if(!pBalance.empty())throw CompilationException("El parentesis '(' no coincide",0);
 
         //Crear lista de tokens, sustituir [-] por [-1,*] y los [+] por [1,+]
         int i = 0;
@@ -164,6 +164,9 @@ namespace gm{
             //Bool
             else if(ids[i] == TRUE || ids[i] == FALSE)
                 tokens.emplace_back(ids[i],ids[i] == TRUE?1:0);
+            //String -> no permitido
+            else if(ids[i] == STRING_VALUE)
+                throw CompilationException("No es posible hacer operaciones con strings",0);
             //Valor
             else
                 tokens.emplace_back(ids[i],std::stod(values[i]));

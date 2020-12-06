@@ -14,7 +14,8 @@ namespace gm{
                                     std::vector<std::unique_ptr<instruccion>>& arbolSintactico) {
         int a = analyzeToBracket(tokens, ids, arbolSintactico, 0);
         if(a != ids.size()){
-            std::cout<<"Error sintactico en linea "<<tokens[a-1].second<<std::endl;
+            //std::cout<<"Error sintactico en linea "<<tokens[a-1].second<<std::endl;
+            throw CompilationException("Error sintactio",tokens[a-1].second);
         }
     }
 
@@ -129,10 +130,6 @@ namespace gm{
                 }
                 arbolParcial.emplace_back(std::unique_ptr<ifElse>(new ifElse(std::move(exp), std::move(instruccionesIf), std::move(instruccionesElse))));
 
-            }
-            else if(ids[i][0] == BREAK)
-            {
-                //Implementar Break
             }
             else if(!ids[i].empty()){
                 throw(CompilationException("Error sintactico", tokens[i].second));

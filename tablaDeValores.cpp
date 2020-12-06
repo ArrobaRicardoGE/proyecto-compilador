@@ -5,7 +5,7 @@ namespace gm{
     void tablaDeValores::getValue(const std::string &variable, int& getType, double &numericValue, std::string &stringValue) {
         auto it = variableType.find(variable);
         if(it  == variableType.end()) {
-            throw CompilationException("Variable " + variable + " no encontrada en tabla de valores", 0);
+            throw CompilationException("Variable " + variable + " no declarada", 0);
         }
         getType = it->second;
         if(getType == STRING)
@@ -24,7 +24,7 @@ namespace gm{
        auto it = variableType.find(variable);
        if(it != variableType.end())
        {
-          throw CompilationException("Doble declaracion de variable " + variable, 0);
+          throw CompilationException("Doble declaracion de la variable " + variable, 0);
        }
 
 
@@ -36,7 +36,7 @@ namespace gm{
         auto it = variableType.find(variable);
         if(it == variableType.end())
         {
-            throw CompilationException("Variable " + variable + "no encontrada", 0);
+            throw CompilationException("Variable " + variable + "no declarada", 0);
         }
         getType = it->second;
         if(getType == STRING)

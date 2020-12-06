@@ -108,7 +108,7 @@ namespace gm{
         int it = 0;
         while(it < inputLine.size()){
             //whitespace
-            if(inputLine[it] == ' '){
+            if(inputLine[it] == ' ' || inputLine[it] == '\t'){
                 it++;
                 continue;
             }
@@ -152,6 +152,6 @@ namespace gm{
             }
             inputFile.close();
         }
-        else throw CompilationException("Unable to open file",0);
+        else throw CompilationException("No se pudo abrir el archivo " + filename,0);
     }
 }

@@ -15,7 +15,7 @@ namespace gm{
         int a = analyzeToBracket(tokens, ids, arbolSintactico, 0);
         if(a != ids.size()){
             //std::cout<<"Error sintactico en linea "<<tokens[a-1].second<<std::endl;
-            throw CompilationException("Error sintactio",tokens[a-1].second);
+            throw CompilationException("Error de sintaxis",tokens[a-1].second);
         }
     }
 
@@ -110,7 +110,7 @@ namespace gm{
 
                 }
                 else{
-                    throw(CompilationException("Error sintactico en declaracion de ciclo For", tokens[i].second));
+                    throw(CompilationException("Error de sintaxis en declaracion de ciclo For", tokens[i].second));
                 }
             }
             else if(ids[i][0] == IF && ids[i][ids[i].size()-1] == '{')
@@ -132,7 +132,7 @@ namespace gm{
 
             }
             else if(!ids[i].empty()){
-                throw(CompilationException("Error sintactico", tokens[i].second));
+                throw(CompilationException("Error de sintaxis", tokens[i].second));
             }
 
         }

@@ -6,7 +6,7 @@ namespace gm{
     double expressionEvaluator::evaluate(std::vector<int> &ids, std::vector<std::string> &values, std::shared_ptr<tablaDeValores> tablaValores) {
         std::vector<Token> tokens;
         convertTokens(ids,values,tablaValores,tokens);
-       // print(tokens);
+        if(Debug::debug)print(tokens);
         Token lastToken(WORD_MAP.at("("),WORD_MAP.at("("));
         for(Token token:tokens){
             if(isoperator(token.id)){

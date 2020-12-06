@@ -17,6 +17,7 @@ std::shared_ptr<tablaDeValores> instruccion::table = table2;
 
 int main(int argc, char* argv[]){
     std::string filename = "../testFile3.txt";
+
     //Comentar estas lineas para que ignore los argumentos
     if(argc == 1){
         std::cerr << "Error: El archivo a compliar no fue proporcionado." << std::endl;

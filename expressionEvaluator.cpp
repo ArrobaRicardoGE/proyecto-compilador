@@ -184,6 +184,7 @@ namespace gm{
     }
 
     void expressionEvaluator::print(std::vector<Token> &tokens) {
+        std::cout<<"Evaluar: ";
         for(auto i:tokens){
             if(isoperator(i.id))
                 std::cout<<(char)i.id<<' ';

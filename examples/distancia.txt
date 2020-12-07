@@ -1,0 +1,29 @@
+# Programa que recibe dos coordenadas del plano y obtiene su distancia euclidiana
+
+Print("Inserta las coordenadas del punto 1 (x1,y1): ")
+float x1 := Read()
+float y1 := Read()
+
+Print("Inserta las coordenadas del punto 2 (x2,y2): ")
+float x2 := Read()
+float y2 := Read()
+
+float sqr := (x1-x2)*(x1-x2) + (y1 - y2)*(y1-y2)
+
+float ans := 0
+float jmp := sqr
+
+# Obtener la raiz con busqueda binaria
+while jmp > 0.00001{
+     if (ans + jmp)*(ans + jmp) > sqr{
+        jmp := jmp/2
+     }
+     else{
+        ans := ans + jmp
+     }
+}
+
+Print("El cuadrado de la distancia entre (x1,y1) y (x2,y2) es: ")
+Print(sqr)
+Print(" y la raiz cuadrada (es decir, la distancia euclidiana): ")
+Print(ans)

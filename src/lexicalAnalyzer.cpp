@@ -95,6 +95,11 @@ namespace gm{
         token += inputLine[it++];
         while(it < inputLine.size() && inputLine[it] != '\"'){
             if(inputLine[it] == '\\'){
+                if(it+1<inputLine.size() && inputLine[it+1] == 'n'){
+                    token+=(char)10;
+                    it+=2;
+                    continue;
+                }
                 token += '\\';
                 it++;
             }

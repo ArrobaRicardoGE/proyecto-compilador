@@ -7,16 +7,12 @@
 
 using namespace gm;
 
-//Path for testing
-const std::string pathm = "D:/TODO/Programas Weeb/proyecto-compilador/";
-const std::string pathg = "C:/users/ricar/documents/up/3/DSAII/3/proyecto-compilador/";
-
 std::shared_ptr<tablaDeValores> table2(new tablaDeValores);
 std::shared_ptr<tablaDeValores> expresion::table = table2;
 std::shared_ptr<tablaDeValores> instruccion::table = table2;
 
 int main(int argc, char* argv[]){
-    std::string filename = "../testFile3.txt";
+    std::string filename = "examples/saludo.txt";
 
     //Comentar estas lineas para que ignore los argumentos
     if(argc == 1){

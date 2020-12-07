@@ -1,0 +1,14 @@
+#Programa que recibe el nombre del usuario, su edad y regresa un saludo
+
+Print("Hola!\n")
+Print("Cual es tu nombre?: ")
+string nombre := Read()
+
+Print("Bonito nombre. Tu edad?: ")
+int edad := Read()
+
+Print("Gusto en conocerte, ")
+Print(nombre)
+Print(" de ")
+Print(edad)
+Print(" anios de edad.\n")

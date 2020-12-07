@@ -10,10 +10,11 @@ namespace gm{
         evaluable->evaluar(b);
         if(b == evaluable->dummystring){
             evaluable ->evaluar(a);
-            std::cout<<a<<std::endl;
+            std::cout<<a;
         }
         else{
-            std::cout<<b<<std::endl;
+            std::cout<<b;
         }
+        std::fflush(stdin);
     }
 }

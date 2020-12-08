@@ -126,8 +126,9 @@ namespace gm{
                 if(ids[i][0] == ELSE && ids[i][1] == '{')
                 {
                     i = analyzeToBracket(tokens, ids, instruccionesElse, i+1);
-                    i--;
+
                 }
+                i--;
                 arbolParcial.emplace_back(std::unique_ptr<ifElse>(new ifElse(std::move(exp), std::move(instruccionesIf), std::move(instruccionesElse))));
 
             }
